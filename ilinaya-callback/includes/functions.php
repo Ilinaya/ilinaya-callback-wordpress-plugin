@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'admin_menu', 'addAdminLink' );
+add_action('admin_menu', 'addAdminLink' );
 add_action('wp_head', 'injectWidget');
 
 
