@@ -27,7 +27,7 @@ Configure your widget settings and copy Widget Id into Plugin Settings in your W
 If you want to show callback button, set "Show call button" checkbox
 in this case your visitors will see a Callback Button and Modal box
 
-####ShortCode
+#### ShortCode
 If you prefer insert shortcode somewhere across your wordpress content you may do it
 
 [ilinaya label="Get callback now 2" inputPlaceholder="Type your number xxx" btnTitle="Call me now!" okmessage="Thanks i will call asap"][/ilinaya]
