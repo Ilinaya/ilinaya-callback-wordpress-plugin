@@ -90,7 +90,7 @@ class IlinayaWidget {
             'title'					=> __( 'Basic Widget settings', $this->textdomain ),
             'description'			=> __( '
              <ul>
-             <li>Please open account at <a href="smsflow.ilinaya.com">smsflow.ilinaya.com</a></li>
+             <li>Please open account at <a href="https://smsflow.ilinaya.com" target="_blank">smsflow.ilinaya.com</a></li>
              <li>Create, configure your widget and get Widget Id</li>
              <li>Widget Supports English, Spanish and Portuguese</li>
             </ul>
