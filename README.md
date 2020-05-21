@@ -21,5 +21,18 @@ To get your Widget Id open account at [smsflow.ilinaya.com](https://smsflow.ilin
 
 Configure your widget settings and copy Widget Id into Plugin Settings in your Wordpress Admin
 
+## Integration options
+
+#### Call button
+If you want to show callback button, set "Show call button" checkbox
+in this case your visitors will see a Callback Button and Modal box
+
+####ShortCode
+If you prefer insert shortcode somewhere across your wordpress content you may do it
+
+[ilinaya label="Get callback now 2" inputPlaceholder="Type your number xxx" btnTitle="Call me now!" okmessage="Thanks i will call asap"][/ilinaya]
+
+
+
 ## Support
 all@ilinaya.com

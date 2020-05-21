@@ -11,6 +11,48 @@ class IlinayaWidget {
     private $options;
     private $settings;
 
+
+    public function inject_shortcode( $atts) {
+        $label = @$atts['label'];
+        $inputplaceholder = @$atts['inputplaceholder'];
+        $btntitle = @$atts['btntitle'];
+        $okMessage = @$atts['okmessage'];
+        if (!$label) {
+            $label = 'Call me';
+        }
+        if (!$inputplaceholder) {
+            $inputplaceholder = 'Type your number';
+        }
+        if (!$btntitle) {
+            $btntitle = 'Request call';
+        }
+        if (!$okMessage) {
+            $okMessage = 'Thank you! We will call you back shortly';
+        }
+
+        return '
+         <script>
+          function requestCallback() {
+            var phoneNumInput = document.getElementById("callbackNumber");
+            if (phoneNumInput.value.length < 10) {
+                phoneNumInput.className = "ilinaya-input-error"
+                return;
+            } 
+            phoneNumInput.className = "";
+            ilwid.callTo(phoneNumInput.value);
+            phoneNumInput.value = "";
+            alert("'.$okMessage.'");
+          }
+         </script>
+         <form class="callbackEmbeededBox" autocomplete="off">
+           <h2>'.$label.'</h2>
+           <input type="text" id="callbackNumber" maxlength="10" placeholder="'.$inputplaceholder.'">
+           <br/>
+           <input value="'.$btntitle.'" type="button" onclick=\'requestCallback();\'>
+         </form>';
+    }
+
+
     public function __construct( $plugin_name, $plugin_slug, $file ) {
         $this->file = $file;
         $this->plugin_slug = $plugin_slug;
@@ -27,6 +69,8 @@ class IlinayaWidget {
         add_filter( 'plugin_action_links_' . plugin_basename( $this->file ) , array( $this, 'add_settings_link' ) );
 
         add_action('wp_head', array( $this, 'inject_widget' ));
+        add_shortcode( 'ilinaya', array( $this, 'inject_shortcode' ));
+
 
     }
 
@@ -45,15 +89,23 @@ class IlinayaWidget {
      * @return void
      */
 
+
     public function inject_widget() {
+        wp_register_style('ilinaya-form-styles',  plugin_dir_url( __FILE__ ) . 'assets/style.css' );
+        wp_enqueue_style('ilinaya-form-styles');
+
         $this->options = $this->get_options();
+        $showButton = $this->options['showButton'];
+        if ($showButton === 'on') {
+            $autoStart = true;
+        } else { $autoStart = false; }
         if (isset($this->options['widget_id']) && !empty($this->options['widget_id']) && $this->options['enabled'] === 'on') {
           echo '
           <script type="text/javascript">
            var _emv = _emv || [];
            _emv[\'campaign\'] = "'.$this->options['widget_id'].'";
            _emv[\'position\'] = "'.$this->options['position'].'";
-
+           _emv[\'autostart\'] = "'.$autoStart.'";
     (function() {
         var em = document.createElement(\'script\'); em.type = \'text/javascript\'; em.async = true;
         em.src = \'https://widget.ilinaya.com/s/w.js\';
@@ -93,7 +145,10 @@ class IlinayaWidget {
              <li>Please open account at <a href="https://smsflow.ilinaya.com" target="_blank">smsflow.ilinaya.com</a></li>
              <li>Create, configure your widget and get Widget Id</li>
              <li>Widget Supports English, Spanish and Portuguese</li>
+             
             </ul>
+            <p>You can show Call button or disable it and use Shortcode anywhere</p>
+            <p>[ilinaya label="Get callback now 2" inputPlaceholder="Type your number xxx" btnTitle="Call me now!" okmessage="Thanks i will call asap"][/ilinaya]</p>
             ', $this->textdomain ),
             'fields'				=> array(
                 array(
@@ -115,8 +170,16 @@ class IlinayaWidget {
                 ),
                 array(
                     'id' 			=> 'enabled',
-                    'label'			=> __( 'Show widget', $this->textdomain ),
-                    'description'	=> __( 'You can Show / Hide widget here', $this->textdomain ),
+                    'label'			=> __( 'Enable widget', $this->textdomain ),
+                    'description'	=> __( 'Enable or disable widget. If you disable it shortcode will not work', $this->textdomain ),
+                    'type'			=> 'checkbox',
+                    'default'		=> 'on'
+                ),
+
+                array(
+                    'id' 			=> 'showButton',
+                    'label'			=> __( 'Show call button', $this->textdomain ),
+                    'description'	=> __( 'You can Show / Hide widget call button', $this->textdomain ),
                     'type'			=> 'checkbox',
                     'default'		=> 'on'
                 ),
