@@ -144,11 +144,11 @@ class IlinayaWidget {
              <ul>
              <li>Please open account at <a href="https://smsflow.ilinaya.com" target="_blank">smsflow.ilinaya.com</a></li>
              <li>Create, configure your widget and get Widget Id</li>
-             <li>Widget Supports English, Spanish and Portuguese</li>
-             
+             <li>Widget Supports English, Spanish and Portuguese.</li>
+            <li>You can show Call button or disable it and use Shortcode anywhere</li>
+            <li>Example: [ilinaya label="Get callback now 2" inputPlaceholder="Type your number xxx" btnTitle="Call me now!" okmessage="Thanks i will call asap"][/ilinaya]</li>
+           
             </ul>
-            <p>You can show Call button or disable it and use Shortcode anywhere</p>
-            <p>[ilinaya label="Get callback now 2" inputPlaceholder="Type your number xxx" btnTitle="Call me now!" okmessage="Thanks i will call asap"][/ilinaya]</p>
             ', $this->textdomain ),
             'fields'				=> array(
                 array(

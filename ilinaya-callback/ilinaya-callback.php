@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Ilinaya CallBack
-Description: Get Calls from your website to your call center
+Plugin Name: Ilinaya CallBack 1.0.0.1
+Description: Get calls from your website
 Author: ilinaya
 */
 require_once plugin_dir_path( __FILE__ ).'class.php';
